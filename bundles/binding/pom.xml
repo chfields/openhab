@@ -176,5 +176,6 @@
     <module>org.openhab.binding.sonance</module>
     <module>org.openhab.binding.stiebelheatpump</module>
     <module>org.openhab.binding.sallegra</module>
+	<module>org.openhab.binding.itachflex</module>
   </modules>
 </project>
