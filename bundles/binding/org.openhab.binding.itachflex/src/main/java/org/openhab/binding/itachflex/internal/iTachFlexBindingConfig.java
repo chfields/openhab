@@ -9,7 +9,7 @@ import org.openhab.core.binding.BindingConfig;
  * This is a helper class holding binding specific configuration details
  * 
  * @author chfields
- * @since 1.8.0
+ * @since 1.9.0
  */
 public class iTachFlexBindingConfig implements BindingConfig {
 

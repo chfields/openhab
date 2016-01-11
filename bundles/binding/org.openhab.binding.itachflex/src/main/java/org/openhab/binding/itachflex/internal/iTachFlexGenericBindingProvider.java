@@ -19,7 +19,7 @@ import org.openhab.model.item.binding.BindingConfigParseException;
  * This class is responsible for parsing the binding configuration.
  * 
  * @author chfields
- * @since 1.8.0
+ * @since 1.9.0
  */
 public class iTachFlexGenericBindingProvider extends AbstractGenericBindingProvider implements iTachFlexBindingProvider {
 

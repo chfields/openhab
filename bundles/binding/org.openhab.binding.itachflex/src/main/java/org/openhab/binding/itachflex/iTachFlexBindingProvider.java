@@ -13,7 +13,7 @@ import org.openhab.core.autoupdate.AutoUpdateBindingProvider;
 
 /**
  * @author chfields
- * @since 1.8.0
+ * @since 1.9.0
  */
 public interface iTachFlexBindingProvider extends AutoUpdateBindingProvider {
 
