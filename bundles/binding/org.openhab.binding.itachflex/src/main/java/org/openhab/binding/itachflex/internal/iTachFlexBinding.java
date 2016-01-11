@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2010-2015, openHAB.org and others.
+ * Copyright (c) 2010-2016, openHAB.org and others.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,11 +24,10 @@ import org.slf4j.LoggerFactory;
 	
 
 /**
- * Implement this class if you are going create an actively polling service
- * like querying a Website/Device.
+ * Binding that communicates with one or multiple iTachFlex devices. 
  * 
  * @author chfields
- * @since 1.8.0
+ * @since 1.9.0
  */
 public class iTachFlexBinding extends AbstractActiveBinding<iTachFlexBindingProvider> implements ManagedService {
 
@@ -72,19 +71,53 @@ public class iTachFlexBinding extends AbstractActiveBinding<iTachFlexBindingProv
 	 * @{inheritDoc}
 	 */
 	@Override
-	protected String getName() {
-		return "iTachFlex Refresh Service";
+	protected void execute() {
+		// the frequently executed code (polling) goes here ...
+		logger.debug("execute() method is called!");
 	}
 	
+	
+	/**
+	 * Get a configured binding by itemName
+	 * @param itemName Name of item in the ItemRegistry
+	 * @return
+	 */
+	private iTachFlexBindingConfig getConfig(String itemName) {
+		for (iTachFlexBindingProvider provider : providers) {
+			iTachFlexBindingConfig config = provider.getConfig(itemName);
+			 if (config != null)
+				 return config;
+		}
+			 
+		return null;
+	}
+
+	/**
+	 * Pulls a specific iTachFlex connector based on the instance name designated in the config
+	 * @param config A binding configuration for a item
+	 * @return A connector to send commands to the iTachFlex instance
+	 */
+	private ITachFlexConnector getConnector(iTachFlexBindingConfig config) {
+		
+		return new ITachFlexConnector(connections.get(config.getInstance()));
+	}
 	
 	/**
 	 * @{inheritDoc}
 	 */
 	@Override
-	protected void execute() {
-		// the frequently executed code (polling) goes here ...
-		logger.debug("execute() method is called!");
+	protected String getName() {
+		return "iTachFlex Refresh Service";
 	}
+
+
+
+	@Override
+	protected long getRefreshInterval() {
+		return 60000;
+	}
+
+
 
 	/**
 	 * @{inheritDoc}
@@ -99,24 +132,7 @@ public class iTachFlexBinding extends AbstractActiveBinding<iTachFlexBindingProv
 		eventPublisher.postUpdate(itemName, new StringType(""));
 	}
 	
-	private iTachFlexBindingConfig getConfig(String itemName) {
-		for (iTachFlexBindingProvider provider : providers) {
-			iTachFlexBindingConfig config = provider.getConfig(itemName);
-			 if (config != null)
-				 return config;
-		}
-			 
-		return null;
-	}
-
-
-
-	private ITachFlexConnector getConnector(iTachFlexBindingConfig config) {
-		
-		return new ITachFlexConnector(connections.get(config.getInstance()));
-	}
-
-
+	
 
 	/**
 	 * @{inheritDoc}
@@ -128,8 +144,7 @@ public class iTachFlexBinding extends AbstractActiveBinding<iTachFlexBindingProv
 		// BindingProviders provide a binding for the given 'itemName'.
 		logger.debug("internalReceiveUpdate({},{}) is called!", itemName, newState);
 	}
-	
-	
+
 
 	/**
 	 * {@inheritDoc}
@@ -168,11 +183,5 @@ public class iTachFlexBinding extends AbstractActiveBinding<iTachFlexBindingProv
 				
 			}
 		}
-	}
-
-
-	@Override
-	protected long getRefreshInterval() {
-		return 60000;
 	}
 }

@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2010-2016, openHAB.org and others.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.openhab.binding.itachflex.internal;
 
 import org.apache.commons.io.IOUtils;
@@ -7,6 +15,11 @@ import org.openhab.io.net.http.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Connector class that sends HTTP commands to iTachFlex instance
+ * @author chris.fields
+ *
+ */
 public class ITachFlexConnector {
 	
 	private static final Logger logger = 
@@ -22,6 +35,11 @@ public class ITachFlexConnector {
 		this.connectionProperties = iTachFlexConnectionProperties;
 	}
 
+	/**
+	 * Send the HTTP iTachFlex based on the command name sent by a String Item
+	 * @param config Binding config for the item to send the command to
+	 * @param command  Command sent by openHAB bus
+	 */
 	public void sendCommand(iTachFlexBindingConfig config, Command command) {
 		
 		String commandString = "";

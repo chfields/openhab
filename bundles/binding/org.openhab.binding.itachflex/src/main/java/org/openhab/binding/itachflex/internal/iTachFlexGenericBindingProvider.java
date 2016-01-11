@@ -16,7 +16,7 @@ import org.openhab.model.item.binding.BindingConfigParseException;
 
 
 /**
- * This class is responsible for parsing the binding configuration.
+ * This class is responsible for parsing the binding configuration for iTachFlex items.
  * 
  * @author chfields
  * @since 1.9.0
